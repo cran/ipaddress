@@ -1,7 +1,7 @@
-474904064b098aeb83ceae9bd14898ab *DESCRIPTION
+a6bdd51343e27fb93e1a12a5e342cbee *DESCRIPTION
 eee75bd9572b80233ee9806d5bba6c7e *LICENSE
 06d21ef63e4f8d3dcf3f1fd8f017ca7c *NAMESPACE
-3dd87ad50a3fba22449318337a0d37b6 *NEWS.md
+eb0541a5c6154f7e9947f7eafe7f56c6 *NEWS.md
 8e77711141d2c4ebc67b3f0bfb8ca545 *R/RcppExports.R
 3d4f385a0fec28e90611c99e5abe4145 *R/cast.R
 1d4a8ff0e1678420f7fb2347734a4d6a *R/coerce.R
@@ -23,9 +23,9 @@ cb70ae01b135329198f5ca5ab83d5fb5 *man/vec_cast.ip_address.Rd
 1358d64c0158f7eeeebe9f97d56545a9 *man/vec_cast.ip_network.Rd
 5624608f5ae6750c2ca2041d0d3b134d *man/vec_ptype2.ip_address.Rd
 d5cc9f4e58c063de57ae41b5be917f86 *man/vec_ptype2.ip_network.Rd
-73e6249cc4c1dab8ab68281d97978704 *src/IpAddressVector.cpp
+bd457aa49e1eef915f380581776092ac *src/IpAddressVector.cpp
 482f770f767475a4f188e473b61f8692 *src/IpAddressVector.h
-d3a1426672c9e481abcbaca05b670ba1 *src/IpNetworkVector.cpp
+d89f72d8ecd950dec098c5f4354ba8d0 *src/IpNetworkVector.cpp
 7f5cf8897f24ab9df4c0984516b1b799 *src/IpNetworkVector.h
 4dd914c46bf2b16c9fbddbdbdb417b3e *src/Makevars.win
 e10a1e138d5e57454486e06c253c01c7 *src/RcppExports.cpp
