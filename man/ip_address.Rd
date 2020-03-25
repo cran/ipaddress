@@ -2,12 +2,15 @@
 % Please edit documentation in R/ip_address.R
 \name{ip_address}
 \alias{ip_address}
+\alias{as_ip_address}
 \alias{is_ip_address}
 \alias{format.ip_address}
 \alias{as.character.ip_address}
-\title{Class for storing IP addresses}
+\title{Vector of IP addresses}
 \usage{
 ip_address(ip = character())
+
+as_ip_address(x)
 
 is_ip_address(x)
 
@@ -19,28 +22,32 @@ is_ip_address(x)
 \item{ip}{Character vector of IP addresses, in dot-decimal notation (IPv4)
 or hexadecimal notation (IPv6).}
 
-\item{x}{An object}
+\item{x}{An \code{ip_address} vector}
 
-\item{...}{Additional arguments to be passed to or from methods}
+\item{...}{Arguments to be passed to other methods}
 }
 \value{
-An \code{ip_address} vector
+An S3 vector of class \code{ip_address}
 }
 \description{
 \code{ip_address()} constructs a vector of IP addresses.
+
+\code{as_ip_address()} casts an object to \code{ip_address}.
 
 \code{is_ip_address()} checks if an object is of class \code{ip_address}.
 }
 \details{
 An address in IPv4 space uses 32-bits. It is usually represented
-as 4 groups of 8 bits, each shown as decimal digits (e.g. "192.168.0.1").
+as 4 groups of 8 bits, each shown as decimal digits (e.g. \verb{192.168.0.1}).
 This is known as dot-decimal notation.
 
 An address in IPv6 space uses 128-bits. It is usually represented
 as 8 groups of 16 bits, each shown as hexadecimal digits
-(e.g. "2001:0db8:85a3:0000:0000:8a2e:0370:7334"). This representation can
+(e.g. \verb{2001:0db8:85a3:0000:0000:8a2e:0370:7334}). This representation can
 also be compressed by removing leading zeros and replacing consecutive
-groups of zeros with double-colon (e.g. "2001:db8:85a3::8a2e:370:7334").
+groups of zeros with double-colon (e.g. \verb{2001:db8:85a3::8a2e:370:7334}).
+Finally, there is also the dual representation. This expresses the final
+two groups as an IPv4 address (e.g. \verb{2001:db8:85a3::8a2e:3.112.115.52}).
 
 The \code{ip_address()} constructor accepts a character vector of IP addresses
 in these two formats. It checks whether each string is a valid IPv4 or IPv6
@@ -49,12 +56,32 @@ a warning is emitted and \code{NA} is stored instead.
 
 When casting an \code{ip_address} object back to a character vector using
 \code{as.character()}, IPv6 addresses are reduced to their compressed representation.
+A special case is IPv4-mapped IPv6 addresses (see \code{\link[=is_ipv4_mapped]{is_ipv4_mapped()}}), which
+are returned in the dual representation (e.g. \verb{::ffff:192.168.0.1}).
+
+Integers can be added to or subtracted from \code{ip_address} vectors.
+This class also supports bitwise operations: \code{!} (NOT), \code{&} (AND),
+\code{|} (OR) and \code{^} (XOR).
 }
 \examples{
 # supports IPv4 and IPv6 simultaneously
-ip_address(c("0.0.0.1", "192.168.0.1", "2001:db8::8a2e:370:7334"))
+ip_address(c("192.168.0.1", "2001:db8::8a2e:370:7334"))
 
 # validates inputs and replaces with NA
-ip_address(c("1.2.3.4", "255.255.255.256", "1.2.3.4/5"))
+ip_address(c("255.255.255.256", "192.168.0.1/32"))
 
+# addition of integers
+ip_address("192.168.0.1") + -2:2
+
+# bitwise NOT
+!ip_address("192.168.0.1")
+
+# bitwise AND
+ip_address("192.168.0.1") & ip_address("255.0.0.255")
+
+# bitwise OR
+ip_address("192.168.0.0") | ip_address("255.0.0.255")
+
+# bitwise XOR
+ip_address("192.168.0.0") ^ ip_address("255.0.0.255")
 }

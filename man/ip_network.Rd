@@ -2,12 +2,21 @@
 % Please edit documentation in R/ip_network.R
 \name{ip_network}
 \alias{ip_network}
+\alias{ip_network.default}
+\alias{ip_network.ip_address}
+\alias{as_ip_network}
 \alias{is_ip_network}
 \alias{format.ip_network}
 \alias{as.character.ip_network}
-\title{Class for storing IP networks}
+\title{Vector of IP networks}
 \usage{
-ip_network(ip = character(), strict = TRUE)
+ip_network(...)
+
+\method{ip_network}{default}(ip = character(), strict = TRUE, ...)
+
+\method{ip_network}{ip_address}(address, prefix_length, strict = TRUE, ...)
+
+as_ip_network(x)
 
 is_ip_network(x)
 
@@ -16,31 +25,38 @@ is_ip_network(x)
 \method{as.character}{ip_network}(x, ...)
 }
 \arguments{
+\item{...}{Arguments to be passed to other methods}
+
 \item{ip}{Character vector of IP networks, in CIDR notation (IPv4 or IPv6).}
 
-\item{strict}{If \code{strict = TRUE} (the default) and the input has host bits set,
+\item{strict}{If \code{TRUE} (the default) and the input has host bits set,
 then a warning is emitted and \code{NA} is returned. If \code{FALSE}, the
-host bits are set to zero and a valid IP network is returned.}
+host bits are set to zero and a valid IP network is returned. If you need
+to retain the host bits, consider using \code{ip_interface()} instead.}
 
-\item{x}{An object}
+\item{address}{An \code{\link{ip_address}} vector}
 
-\item{...}{Additional arguments to be passed to or from methods}
+\item{prefix_length}{An integer vector}
+
+\item{x}{An \code{ip_network} vector}
 }
 \value{
-An \code{ip_network} vector
+An S3 vector of class \code{ip_network}
 }
 \description{
 \code{ip_network()} constructs a vector of IP networks.
 
+\code{as_ip_network()} casts an object to \code{ip_network}.
+
 \code{is_ip_network()} checks if an object is of class \code{ip_network}.
 }
 \details{
-An IP network corresponds to a range of contiguous IP addresses
+An IP network corresponds to a contiguous range of IP addresses
 (also known as an IP block). CIDR notation represents an
 IP network as the routing prefix address (which denotes the start
 of the range) and the prefix length (which indicates the size of
-the range) separated by a forward slash. For example, "192.168.100.0/22"
-represents addresses from "192.168.100.0" to "192.168.103.255".
+the range) separated by a forward slash. For example, \verb{192.168.0.0/24}
+represents addresses from \verb{192.168.0.0} to \verb{192.168.0.255}.
 
 The prefix length indicates the number of bits reserved by the
 routing prefix. This means that larger prefix lengths indicate
@@ -53,23 +69,28 @@ in CIDR notation. It checks whether each string is a valid IPv4 or IPv6
 network, and converts it to an \code{ip_network} object. If the input is invalid,
 a warning is emitted and \code{NA} is stored instead.
 
+An alternative constructor accepts an \code{\link{ip_address}} vector and an
+integer vector containing the network address and prefix length, respectively.
+
 When casting an \code{ip_network} object back to a character vector using
 \code{as.character()}, IPv6 addresses are reduced to their compressed representation.
 }
 \examples{
-# supports IPv4 and IPv6 simultaneously
-ip_network(c("92.0.2.0/24", "192.168.100.0/22", "2001:db8::/48"))
+# construct from character vector
+ip_network(c("192.168.0.0/24", "2001:db8::/48"))
+
+# construct from address + prefix length objects
+ip_network(ip_address(c("192.168.0.0", "2001:db8::")), c(24L, 48L))
 
 # validates inputs and replaces with NA
-ip_network(c("192.168.0.0/24", "192.168.0.0/33", "1.2.3.4"))
+ip_network(c("192.168.0.0/33", "192.168.0.0"))
 
 # IP networks should not have any host bits set
 ip_network("192.168.0.1/22")
 
+# but we can mask the host bits if desired
 ip_network("192.168.0.1/22", strict = FALSE)
-
 }
 \seealso{
-\code{\link{prefix_length}}, \code{\link{netmask}},
-\code{\link{hostmask}}
+\code{\link[=prefix_length]{prefix_length()}}, \code{\link[=network_address]{network_address()}}, \code{\link[=netmask]{netmask()}}, \code{\link[=hostmask]{hostmask()}}
 }
