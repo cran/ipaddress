@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ipaddress
+# ipaddress <a href='https://davidchall.github.io/ipaddress'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -87,6 +87,23 @@ mutate(x, ipv6 = is_ipv6(address), in_net = is_within(address, network))
 #> 1             192.168.0.1 192.168.100.0/22 FALSE FALSE 
 #> 2 2001:db8::8a2e:370:7334    2001:db8::/48 TRUE  TRUE
 ```
+
+## Related work
+
+  - [**iptools**](https://hrbrmstr.github.io/iptools/) – A well
+    established R package for working with IP addresses and networks.
+    Unfortunately IPv6 support is severely limited, and addresses are
+    stored as character vectors (so they must be parsed to their native
+    bit representation for every operation). It served as an excellent
+    guide and motivation for the ipaddress package.
+  - [**cyberpandas**](https://cyberpandas.readthedocs.io) – A Python
+    package for using IP addresses in a
+    [pandas](https://pandas.pydata.org) DataFrame. This offers full
+    support for IPv6 and stores addresses in the native bit
+    representation. However, most “interesting” operations must
+    deserialize each address to a Python
+    [ipaddress](https://docs.python.org/library/ipaddress.html) object,
+    which is slow. It also doesn’t support IP networks.
 
 -----
 

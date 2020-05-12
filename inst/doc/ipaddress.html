@@ -335,7 +335,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">ip_address</span>(<span class="kw">c</span>(<span class="st">&quot;192.168.0.1&quot;</span>, <span class="st">&quot;2001:db8::8a2e:370:7334&quot;</span>))</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; &lt;ip_address[2]&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; [1] 192.168.0.1             2001:db8::8a2e:370:7334</span></span></code></pre></div>
-<p>Unlike the Python <a href="https://docs.python.org/library/ipaddress.html">ipaddress</a> module, we don’t provide a way to construct an IP address from an integer. This is because the R integer data type does not support the necessary range of values. However, if you have addresses stored as raw bytes, you can construct an <code>ip_address()</code> vector using the <code>from_packed()</code> function.</p>
+<p>IP addresses are often stored as integers for convenience, so you might need to encode or decode this format. The <code>ip_to_integer()</code> and <code>integer_to_ip()</code> functions are provided for this purpose. We recommend reading the documentation before use, because these functions can be slightly counter-intuitive (due to circumventing limitations of the R integer data type).</p>
 </div>
 <div id="data-storage" class="section level2">
 <h2>Data storage</h2>
