@@ -21,12 +21,11 @@ module.
 
 Here are some of the features:
 
-  - Fully supports both **IPv4 and IPv6** address spaces
-  - **Efficiently stores** addresses in their native format (a sequence
-    of bits)
-  - Calculations are performed in C++ for **improved performance**
-  - Classes are **compatible with the tidyverse**
   - Functions for **generation and analysis of IP data**
+  - Full support for both **IPv4 and IPv6** address spaces
+  - **Memory footprint:** data stored in native format
+  - **Performance:** calculations performed in C++
+  - Compatible with the **tidyverse**
 
 ## Installation
 
@@ -54,17 +53,15 @@ and tibbles.
 library(tidyverse)
 library(ipaddress)
 
-x <- tibble(
+tibble(
   address = ip_address(c("192.168.0.1", "2001:db8::8a2e:370:7334")),
-  network = ip_network(c("192.168.100.0/22", "2001:db8::/48"))
+  network = ip_network(c("192.168.100.0/22", "2001:db8::/80"))
 )
-
-x
 #> # A tibble: 2 x 2
 #>                   address          network
 #>                 <ip_addr>       <ip_netwk>
 #> 1             192.168.0.1 192.168.100.0/22
-#> 2 2001:db8::8a2e:370:7334    2001:db8::/48
+#> 2 2001:db8::8a2e:370:7334    2001:db8::/80
 ```
 
 Input character vectors are validated as they are parsed. Invalid inputs
@@ -72,7 +69,7 @@ raise a warning and are replaced with `NA`.
 
 ``` r
 ip_address(c("255.255.255.255", "255.255.255.256"))
-#> Warning: Invalid value on row 2: 255.255.255.256
+#> Warning: Problem on row 2: 255.255.255.256
 #> <ip_address[2]>
 #> [1] 255.255.255.255 <NA>
 ```
@@ -80,22 +77,27 @@ ip_address(c("255.255.255.255", "255.255.255.256"))
 Functions are provided to enable common tasks:
 
 ``` r
-mutate(x, ipv6 = is_ipv6(address), in_net = is_within(address, network))
+tibble(network = ip_network(c("192.168.100.0/22", "2001:db8::/80"))) %>%
+  mutate(
+    first = network_address(network),
+    last = broadcast_address(network),
+    ipv6 = is_ipv6(network)
+  )
 #> # A tibble: 2 x 4
-#>                   address          network ipv6  in_net
-#>                 <ip_addr>       <ip_netwk> <lgl> <lgl> 
-#> 1             192.168.0.1 192.168.100.0/22 FALSE FALSE 
-#> 2 2001:db8::8a2e:370:7334    2001:db8::/48 TRUE  TRUE
+#>            network         first                     last ipv6 
+#>         <ip_netwk>     <ip_addr>                <ip_addr> <lgl>
+#> 1 192.168.100.0/22 192.168.100.0          192.168.103.255 FALSE
+#> 2    2001:db8::/80    2001:db8:: 2001:db8::ffff:ffff:ffff TRUE
 ```
 
 ## Related work
 
   - [**iptools**](https://hrbrmstr.github.io/iptools/) – A well
     established R package for working with IP addresses and networks.
-    Unfortunately IPv6 support is severely limited, and addresses are
-    stored as character vectors (so they must be parsed to their native
-    bit representation for every operation). It served as an excellent
-    guide and motivation for the ipaddress package.
+    Unfortunately IPv6 support is severely limited. Also, addresses and
+    networks are stored as character vectors, so they must be parsed to
+    their native bit representation for every operation. It served as an
+    excellent guide and motivation for the ipaddress package.
   - [**cyberpandas**](https://cyberpandas.readthedocs.io) – A Python
     package for using IP addresses in a
     [pandas](https://pandas.pydata.org) DataFrame. This offers full

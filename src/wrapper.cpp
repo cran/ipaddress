@@ -100,6 +100,11 @@ DataFrame wrap_compare_address(List x) {
 }
 
 // [[Rcpp::export]]
+List wrap_subnets(List network_r, IntegerVector new_prefix) {
+  return IpNetworkVector(network_r).subnets(new_prefix).encodeR();
+}
+
+// [[Rcpp::export]]
 List wrap_network_hosts(List network_r, bool exclude_unusable) {
   return IpNetworkVector(network_r).hosts(exclude_unusable).encodeR();
 }
@@ -158,6 +163,11 @@ List wrap_hostmask(IntegerVector prefix_length, LogicalVector is_ipv6) {
 }
 
 // [[Rcpp::export]]
+IntegerVector wrap_prefix_from_mask(List address_r) {
+  return IpAddressVector(address_r).prefixFromMask();
+}
+
+// [[Rcpp::export]]
 List wrap_broadcast_address(List network_r) {
   return IpNetworkVector(network_r).broadcastAddress().encodeR();
 }
@@ -176,6 +186,22 @@ LogicalVector wrap_is_within_any(List address_r, List network_r) {
   IpNetworkVector network(network_r);
 
   return address.isWithinAny(network);
+}
+
+// [[Rcpp::export]]
+List wrap_smallest_common_network(List address1_r, List address2_r) {
+  IpAddressVector address1(address1_r);
+  IpAddressVector address2(address2_r);
+
+  return IpNetworkVector::smallestCommonNetwork(address1, address2).encodeR();
+}
+
+// [[Rcpp::export]]
+List wrap_summarize_address_range(List address1_r, List address2_r) {
+  IpAddressVector address1(address1_r);
+  IpAddressVector address2(address2_r);
+
+  return IpNetworkVector::summarizeAddressRange(address1, address2);
 }
 
 

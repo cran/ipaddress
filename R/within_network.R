@@ -58,9 +58,9 @@ is_within_any <- function(address, network) {
 
 #' Network membership of other networks
 #'
-#' `overlaps()` checks for any overlap between two networks; `is_subnet()` and
-#' `is_supernet()` check if one network is a true subnet or supernet of another
-#' network.
+#' `is_supernet()` and `is_subnet()` check if one network is a true supernet or
+#' subnet of another network; `overlaps()` checks for any overlap between two
+#' networks.
 #'
 #' @param network An [`ip_network`] vector
 #' @param other An [`ip_network`] vector
@@ -70,20 +70,21 @@ is_within_any <- function(address, network) {
 #' net1 <- ip_network("192.168.1.128/30")
 #' net2 <- ip_network("192.168.1.0/24")
 #'
-#' overlaps(net1, net2)
+#' is_supernet(net1, net2)
 #'
 #' is_subnet(net1, net2)
 #'
-#' is_supernet(net1, net2)
+#' overlaps(net1, net2)
 #' @seealso
-#' Use [is_within()] to check if an [`ip_address`] is within
-#' an [`ip_network`].
+#' Use [is_within()] to check if an [`ip_address`] is within an [`ip_network`].
+#'
+#' Use [supernet()] and [subnets()] to traverse the network hierarchy.
 #' @name network_in_network
 NULL
 
 #' @rdname network_in_network
 #' @export
-overlaps <- function(network, other) {
+is_supernet <- function(network, other) {
   if (!is_ip_network(network)) {
     abort("'network' must be an ip_network vector")
   }
@@ -96,7 +97,7 @@ overlaps <- function(network, other) {
   network <- args[[1L]]
   other <- args[[2L]]
 
-  wrap_is_within(network_address(network), other) | wrap_is_within(network_address(other), network)
+  wrap_is_within(network_address(other), network) & (prefix_length(other) >= prefix_length(network))
 }
 
 #' @rdname network_in_network
@@ -119,7 +120,7 @@ is_subnet <- function(network, other) {
 
 #' @rdname network_in_network
 #' @export
-is_supernet <- function(network, other) {
+overlaps <- function(network, other) {
   if (!is_ip_network(network)) {
     abort("'network' must be an ip_network vector")
   }
@@ -132,5 +133,5 @@ is_supernet <- function(network, other) {
   network <- args[[1L]]
   other <- args[[2L]]
 
-  wrap_is_within(network_address(other), network) & (prefix_length(other) >= prefix_length(network))
+  wrap_is_within(network_address(network), other) | wrap_is_within(network_address(other), network)
 }

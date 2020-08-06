@@ -65,6 +65,10 @@ wrap_compare_address <- function(x) {
     .Call(`_ipaddress_wrap_compare_address`, x)
 }
 
+wrap_subnets <- function(network_r, new_prefix) {
+    .Call(`_ipaddress_wrap_subnets`, network_r, new_prefix)
+}
+
 wrap_network_hosts <- function(network_r, exclude_unusable) {
     .Call(`_ipaddress_wrap_network_hosts`, network_r, exclude_unusable)
 }
@@ -101,6 +105,10 @@ wrap_hostmask <- function(prefix_length, is_ipv6) {
     .Call(`_ipaddress_wrap_hostmask`, prefix_length, is_ipv6)
 }
 
+wrap_prefix_from_mask <- function(address_r) {
+    .Call(`_ipaddress_wrap_prefix_from_mask`, address_r)
+}
+
 wrap_broadcast_address <- function(network_r) {
     .Call(`_ipaddress_wrap_broadcast_address`, network_r)
 }
@@ -111,6 +119,14 @@ wrap_is_within <- function(address_r, network_r) {
 
 wrap_is_within_any <- function(address_r, network_r) {
     .Call(`_ipaddress_wrap_is_within_any`, address_r, network_r)
+}
+
+wrap_smallest_common_network <- function(address1_r, address2_r) {
+    .Call(`_ipaddress_wrap_smallest_common_network`, address1_r, address2_r)
+}
+
+wrap_summarize_address_range <- function(address1_r, address2_r) {
+    .Call(`_ipaddress_wrap_summarize_address_range`, address1_r, address2_r)
 }
 
 wrap_is_multicast <- function(x) {

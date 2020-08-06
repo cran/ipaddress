@@ -186,6 +186,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// wrap_subnets
+List wrap_subnets(List network_r, IntegerVector new_prefix);
+RcppExport SEXP _ipaddress_wrap_subnets(SEXP network_rSEXP, SEXP new_prefixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type network_r(network_rSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type new_prefix(new_prefixSEXP);
+    rcpp_result_gen = Rcpp::wrap(wrap_subnets(network_r, new_prefix));
+    return rcpp_result_gen;
+END_RCPP
+}
 // wrap_network_hosts
 List wrap_network_hosts(List network_r, bool exclude_unusable);
 RcppExport SEXP _ipaddress_wrap_network_hosts(SEXP network_rSEXP, SEXP exclude_unusableSEXP) {
@@ -293,6 +305,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// wrap_prefix_from_mask
+IntegerVector wrap_prefix_from_mask(List address_r);
+RcppExport SEXP _ipaddress_wrap_prefix_from_mask(SEXP address_rSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type address_r(address_rSEXP);
+    rcpp_result_gen = Rcpp::wrap(wrap_prefix_from_mask(address_r));
+    return rcpp_result_gen;
+END_RCPP
+}
 // wrap_broadcast_address
 List wrap_broadcast_address(List network_r);
 RcppExport SEXP _ipaddress_wrap_broadcast_address(SEXP network_rSEXP) {
@@ -325,6 +348,30 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< List >::type address_r(address_rSEXP);
     Rcpp::traits::input_parameter< List >::type network_r(network_rSEXP);
     rcpp_result_gen = Rcpp::wrap(wrap_is_within_any(address_r, network_r));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wrap_smallest_common_network
+List wrap_smallest_common_network(List address1_r, List address2_r);
+RcppExport SEXP _ipaddress_wrap_smallest_common_network(SEXP address1_rSEXP, SEXP address2_rSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type address1_r(address1_rSEXP);
+    Rcpp::traits::input_parameter< List >::type address2_r(address2_rSEXP);
+    rcpp_result_gen = Rcpp::wrap(wrap_smallest_common_network(address1_r, address2_r));
+    return rcpp_result_gen;
+END_RCPP
+}
+// wrap_summarize_address_range
+List wrap_summarize_address_range(List address1_r, List address2_r);
+RcppExport SEXP _ipaddress_wrap_summarize_address_range(SEXP address1_rSEXP, SEXP address2_rSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type address1_r(address1_rSEXP);
+    Rcpp::traits::input_parameter< List >::type address2_r(address2_rSEXP);
+    rcpp_result_gen = Rcpp::wrap(wrap_summarize_address_range(address1_r, address2_r));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -467,6 +514,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ipaddress_wrap_parse_interface", (DL_FUNC) &_ipaddress_wrap_parse_interface, 1},
     {"_ipaddress_wrap_construct_interface_from_address", (DL_FUNC) &_ipaddress_wrap_construct_interface_from_address, 2},
     {"_ipaddress_wrap_compare_address", (DL_FUNC) &_ipaddress_wrap_compare_address, 1},
+    {"_ipaddress_wrap_subnets", (DL_FUNC) &_ipaddress_wrap_subnets, 2},
     {"_ipaddress_wrap_network_hosts", (DL_FUNC) &_ipaddress_wrap_network_hosts, 2},
     {"_ipaddress_wrap_sample_network", (DL_FUNC) &_ipaddress_wrap_sample_network, 2},
     {"_ipaddress_wrap_bitwise_not", (DL_FUNC) &_ipaddress_wrap_bitwise_not, 1},
@@ -476,9 +524,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ipaddress_wrap_add_integer", (DL_FUNC) &_ipaddress_wrap_add_integer, 2},
     {"_ipaddress_wrap_netmask", (DL_FUNC) &_ipaddress_wrap_netmask, 2},
     {"_ipaddress_wrap_hostmask", (DL_FUNC) &_ipaddress_wrap_hostmask, 2},
+    {"_ipaddress_wrap_prefix_from_mask", (DL_FUNC) &_ipaddress_wrap_prefix_from_mask, 1},
     {"_ipaddress_wrap_broadcast_address", (DL_FUNC) &_ipaddress_wrap_broadcast_address, 1},
     {"_ipaddress_wrap_is_within", (DL_FUNC) &_ipaddress_wrap_is_within, 2},
     {"_ipaddress_wrap_is_within_any", (DL_FUNC) &_ipaddress_wrap_is_within_any, 2},
+    {"_ipaddress_wrap_smallest_common_network", (DL_FUNC) &_ipaddress_wrap_smallest_common_network, 2},
+    {"_ipaddress_wrap_summarize_address_range", (DL_FUNC) &_ipaddress_wrap_summarize_address_range, 2},
     {"_ipaddress_wrap_is_multicast", (DL_FUNC) &_ipaddress_wrap_is_multicast, 1},
     {"_ipaddress_wrap_is_unspecified", (DL_FUNC) &_ipaddress_wrap_is_unspecified, 1},
     {"_ipaddress_wrap_is_loopback", (DL_FUNC) &_ipaddress_wrap_is_loopback, 1},

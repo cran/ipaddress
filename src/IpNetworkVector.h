@@ -24,9 +24,9 @@ private:
     std::vector<bool> in_is_na
   ) : network_v4(in_network_v4), network_v6(in_network_v6), is_ipv6(in_is_ipv6), is_na(in_is_na) { };
 
-  Rcpp::LogicalVector isTrue(
-      const std::function<bool(const asio::ip::address_v4&)>& decide_fn_v4,
-      const std::function<bool(const asio::ip::address_v6&)>& decide_fn_v6
+  Rcpp::LogicalVector checkCondition(
+      const std::function<bool(const asio::ip::address_v4&)>& condition_v4,
+      const std::function<bool(const asio::ip::address_v6&)>& condition_v6
   ) const;
 
 public:
@@ -44,8 +44,14 @@ public:
   IpNetworkVector(IpAddressVector address, Rcpp::IntegerVector prefix_length,
                   bool strict, bool is_interface = false);
 
+  // Construct from two addresses (single network)
+  static IpNetworkVector smallestCommonNetwork(const IpAddressVector &address1, const IpAddressVector &address2);
+
+  // Construct from two addresses (multiple networks)
+  static Rcpp::List summarizeAddressRange(const IpAddressVector &address1, const IpAddressVector &address2);
+
   // Warn about invalid input
-  static void warnInvalidInput(unsigned int index, const std::string &input, const std::string &reason = "");
+  static void warnOnRow(unsigned int index, const std::string &input, const std::string &reason = "");
 
 
   /*----------*
@@ -63,6 +69,9 @@ public:
    *-----------------------*/
   // Return last address in network
   IpAddressVector broadcastAddress() const;
+
+  // List subnetworks in network
+  IpNetworkVector subnets(Rcpp::IntegerVector new_prefix) const;
 
   // List all addresses in network
   IpAddressVector hosts(bool exclude_unusable) const;
