@@ -28,7 +28,7 @@ as_ip_network(x)
 
 \method{as.character}{ip_network}(x, ...)
 
-\method{format}{ip_network}(x, ...)
+\method{format}{ip_network}(x, exploded = FALSE, ...)
 }
 \arguments{
 \item{...}{Included for S3 generic consistency}
@@ -49,6 +49,9 @@ to retain the host bits, consider using \code{\link[=ip_interface]{ip_interface(
 \item{address}{An \code{\link{ip_address}} vector}
 
 \item{prefix_length}{An integer vector}
+
+\item{exploded}{Logical scalar. Should IPv6 addresses display leading zeros?
+(default: \code{FALSE})}
 }
 \value{
 An S3 vector of class \code{ip_network}
@@ -84,6 +87,9 @@ integer vector containing the network address and prefix length, respectively.
 
 When casting an \code{ip_network} object back to a character vector using
 \code{as.character()}, IPv6 addresses are reduced to their compressed representation.
+
+When comparing and sorting \code{ip_network} vectors, the network address is
+compared before the prefix length.
 }
 \examples{
 # construct from character vector

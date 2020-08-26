@@ -30,6 +30,9 @@ methods::setOldClass(c("ip_interface", "vctrs_vctr"))
 #' For other purposes, you can extract the address and network components using
 #' [as_ip_address()] and [as_ip_network()].
 #'
+#' When comparing and sorting `ip_interface` vectors, the network is compared
+#' before the host address.
+#'
 #' @param ... Included for S3 generic consistency
 #' @param x
 #' * For `ip_interface()`: A character vector of IP interfaces, in CIDR notation
@@ -77,8 +80,8 @@ ip_interface.default <- function(x = character(), ...) {
 #' @rdname ip_interface
 #' @export
 ip_interface.ip_address <- function(address, prefix_length, ...) {
-  if (!is_integer(prefix_length)) {
-    abort("'prefix_length' must be an integer vector")
+  if (!is_integerish(prefix_length)) {
+    abort("`prefix_length` must be an integer vector")
   }
 
   # vector recycling
@@ -134,9 +137,23 @@ as_ip_interface.character <- function(x) ip_interface(x)
 #' @export
 as.character.ip_interface <- function(x, ...) wrap_print_network(x)
 
+#' @inheritParams format.ip_address
 #' @rdname ip_interface
 #' @export
-format.ip_interface <- function(x, ...) as.character(x)
+format.ip_interface <- function(x, exploded = FALSE, ...) {
+  wrap_print_network(x, exploded)
+}
+
+
+# Comparison ------------------------------------------------------------
+
+#' @export
+vec_proxy_compare.ip_interface <- function(x, ...) {
+  compare_network <- vec_proxy_compare(as_ip_network(x))
+  compare_address <- vec_proxy_compare(as_ip_address(x))
+
+  cbind(compare_network, compare_address)
+}
 
 
 # Other ------------------------------------------------------------

@@ -5,8 +5,10 @@
 #include <Rcpp/Interrupt.h>
 #include <asio/ip/network_v4.hpp>
 #include <asio/ip/network_v6.hpp>
-#include "masking.h"
+#include <ipaddress/masking.h>
 
+
+namespace ipaddress {
 
 template<class Address>
 Address advance_ip(const Address &address, int n) {
@@ -145,6 +147,8 @@ std::vector<Address> calculate_hosts(const Network &network, bool exclude_unusab
   }
 
   return hosts;
+}
+
 }
 
 #endif

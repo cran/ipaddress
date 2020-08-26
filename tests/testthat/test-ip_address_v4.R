@@ -7,12 +7,14 @@ test_that("construction works", {
   expect_length(ip_address(x), length(x))
   expect_equal(ip_address(x), as_ip_address(x))
   expect_equal(as.character(ip_address(x)), x)
+  expect_equal(vec_ptype_abbr(ip_address(x)), "ip_addr")
 
   expect_error(as_ip_address(1L))
 })
 
 test_that("formats correctly", {
   expect_equal(format(ip_address(x)), x)
+  expect_equal(format(ip_address(x), exploded = TRUE), x)
 })
 
 test_that("missing values work", {
@@ -52,4 +54,7 @@ test_that("comparison operations work", {
     c(-1L, rep(1L, length(x) - 1L))
   )
   expect_equal(vec_compare(ip_address("192.168.0.1"), ip_address(NA)), NA_integer_)
+
+  # not effected by machine byte-endianness
+  expect_true(ip_address("255.128.0.0") > ip_address("0.0.128.255"))
 })

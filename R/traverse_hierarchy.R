@@ -12,7 +12,7 @@
 #' @return An [`ip_network`] vector
 #'
 #' @details
-#' The `ipaddress` package does not support \link[base:LongVectors]{long vectors}
+#' The ipaddress package does not support \link[base:LongVectors]{long vectors}
 #' (i.e. vectors with more than 2^31 - 1 elements). The limits the number of
 #' subnetworks that `subnets()` can return. However, you might find that machine
 #' memory imposes stricter limitations.
@@ -37,19 +37,19 @@ NULL
 #' @export
 supernet <- function(x, new_prefix = prefix_length(x) - 1L) {
   if (!is_ip_network(x)) {
-    abort("'x' must be an ip_network vector")
+    abort("`x` must be an ip_network vector")
   }
-  if (!is_integer(new_prefix)) {
-    abort("'new_prefix' must be an integer vector")
+  if (!is_integerish(new_prefix)) {
+    abort("`new_prefix` must be an integer vector")
   }
   if (any(new_prefix < 0, na.rm = TRUE)) {
-    abort("'new_prefix' cannot be negative")
+    abort("`new_prefix` cannot be negative")
   }
   if (any(new_prefix > max_prefix_length(x), na.rm = TRUE)) {
-    abort("'new_prefix' cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
+    abort("`new_prefix` cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
   }
   if (any(new_prefix >= prefix_length(x), na.rm = TRUE)) {
-    abort("'new_prefix' must be shorter than current prefix length")
+    abort("`new_prefix` must be shorter than current prefix length")
   }
 
   # vector recycling
@@ -73,19 +73,19 @@ supernet <- function(x, new_prefix = prefix_length(x) - 1L) {
 #' @export
 subnets <- function(x, new_prefix = prefix_length(x) + 1L) {
   if (!(is_ip_network(x) && length(x) == 1)) {
-    abort("'x' must be an ip_network scalar")
+    abort("`x` must be an ip_network scalar")
   }
-  if (!is_scalar_integer(new_prefix)) {
-    abort("'new_prefix' must be an integer scalar")
+  if (!is_scalar_integerish(new_prefix)) {
+    abort("`new_prefix` must be an integer scalar")
   }
   if (any(new_prefix < 0, na.rm = TRUE)) {
-    abort("'new_prefix' cannot be negative")
+    abort("`new_prefix` cannot be negative")
   }
   if (any(new_prefix > max_prefix_length(x), na.rm = TRUE)) {
-    abort("'new_prefix' cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
+    abort("`new_prefix` cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
   }
   if (any(new_prefix <= prefix_length(x), na.rm = TRUE)) {
-    abort("'new_prefix' must be longer than current prefix length")
+    abort("`new_prefix` must be longer than current prefix length")
   }
   if (any(new_prefix - prefix_length(x) > 30L, na.rm = TRUE)) {
     abort("Too many subnets")

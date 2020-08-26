@@ -22,7 +22,7 @@ as_ip_address(x)
 
 \method{as.character}{ip_address}(x, ...)
 
-\method{format}{ip_address}(x, ...)
+\method{format}{ip_address}(x, exploded = FALSE, ...)
 }
 \arguments{
 \item{x}{\itemize{
@@ -34,6 +34,9 @@ notation (IPv4) or hexadecimal notation (IPv6)
 }}
 
 \item{...}{Included for S3 generic consistency}
+
+\item{exploded}{Logical scalar. Should IPv6 addresses display leading zeros?
+(default: \code{FALSE})}
 }
 \value{
 An S3 vector of class \code{ip_address}
@@ -68,9 +71,7 @@ When casting an \code{ip_address} object back to a character vector using
 A special case is IPv4-mapped IPv6 addresses (see \code{\link[=is_ipv4_mapped]{is_ipv4_mapped()}}), which
 are returned in the dual representation (e.g. \verb{::ffff:192.168.0.1}).
 
-Integers can be added to or subtracted from \code{ip_address} vectors.
-This class also supports bitwise operations: \code{!} (NOT), \code{&} (AND),
-\code{|} (OR) and \code{^} (XOR).
+\code{ip_address} vectors support a number of \link[=ip_operators]{operators}.
 }
 \examples{
 # supports IPv4 and IPv6 simultaneously
@@ -78,22 +79,7 @@ ip_address(c("192.168.0.1", "2001:db8::8a2e:370:7334"))
 
 # validates inputs and replaces with NA
 ip_address(c("255.255.255.256", "192.168.0.1/32"))
-
-# addition of integers
-ip_address("192.168.0.1") + -2:2
-
-# bitwise NOT
-!ip_address("192.168.0.1")
-
-# bitwise AND
-ip_address("192.168.0.1") & ip_address("255.0.0.255")
-
-# bitwise OR
-ip_address("192.168.0.0") | ip_address("255.0.0.255")
-
-# bitwise XOR
-ip_address("192.168.0.0") ^ ip_address("255.0.0.255")
 }
 \seealso{
-\code{vignette("ipaddress-classes")}
+\code{\link{ip_operators}}, \code{vignette("ipaddress-classes")}
 }

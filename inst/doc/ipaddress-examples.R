@@ -34,6 +34,28 @@ my_addresses %>%
 
 ## -----------------------------------------------------------------------------
 my_addresses %>%
-  full_join(my_networks, by = character()) %>%
-  filter(is_within(address, network))
+  fuzzyjoin::fuzzy_left_join(my_networks, c("address" = "network"), is_within)
+
+## ----accept-reject------------------------------------------------------------
+sample_public <- function(size) {
+  result <- sample_ipv4(size)
+  
+  all_public <- FALSE
+  while (!all_public) {
+    public <- is_global(result)
+    n_replace <- sum(!public)
+    
+    if (n_replace == 0) {
+      all_public <- TRUE
+    } else {
+      result[!public] <- sample_ipv4(n_replace)
+    }
+  }
+  
+  result
+}
+
+## -----------------------------------------------------------------------------
+tibble(address = sample_public(10)) %>%
+  mutate(is_public = is_global(address))
 

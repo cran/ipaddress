@@ -25,7 +25,7 @@ as_ip_interface(x)
 
 \method{as.character}{ip_interface}(x, ...)
 
-\method{format}{ip_interface}(x, ...)
+\method{format}{ip_interface}(x, exploded = FALSE, ...)
 }
 \arguments{
 \item{...}{Included for S3 generic consistency}
@@ -41,6 +41,9 @@ as_ip_interface(x)
 \item{address}{An \code{\link{ip_address}} vector}
 
 \item{prefix_length}{An integer vector}
+
+\item{exploded}{Logical scalar. Should IPv6 addresses display leading zeros?
+(default: \code{FALSE})}
 }
 \value{
 An S3 vector of class \code{ip_interface}
@@ -73,6 +76,9 @@ reserved for \code{\link{ip_network}} vectors: \code{\link[=prefix_length]{prefi
 
 For other purposes, you can extract the address and network components using
 \code{\link[=as_ip_address]{as_ip_address()}} and \code{\link[=as_ip_network]{as_ip_network()}}.
+
+When comparing and sorting \code{ip_interface} vectors, the network is compared
+before the host address.
 }
 \examples{
 # construct from character vector

@@ -13,7 +13,7 @@
 #' For networks with a prefix length of 31 (for IPv4) or 127 (for IPv6),
 #' the unusable hosts are included in the results of `hosts()`.
 #'
-#' The `ipaddress` package does not support \link[base:LongVectors]{long vectors}
+#' The ipaddress package does not support \link[base:LongVectors]{long vectors}
 #' (i.e. vectors with more than 2^31 - 1 elements). As a result, these two
 #' functions do not support networks larger than this size. This corresponds
 #' to prefix lengths less than 2 (for IPv4) or 98 (for IPv6). However, you
@@ -44,7 +44,7 @@ NULL
 #' @export
 seq.ip_network <- function(x, ...) {
   if (length(x) != 1) {
-    abort("'x' must be an ip_network scalar")
+    abort("`x` must be an ip_network scalar")
   }
   if (any(max_prefix_length(x) - prefix_length(x) > 30L, na.rm = TRUE)) {
     abort("Network too large")
@@ -60,7 +60,7 @@ seq.ip_network <- function(x, ...) {
 #' @export
 hosts <- function(x) {
   if (!(is_ip_network(x) && length(x) == 1)) {
-    abort("'x' must be an ip_network scalar")
+    abort("`x` must be an ip_network scalar")
   }
   if (any(max_prefix_length(x) - prefix_length(x) > 30L, na.rm = TRUE)) {
     abort("Network too large")

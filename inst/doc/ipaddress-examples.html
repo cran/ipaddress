@@ -364,7 +364,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="is-an-address-in-a-network" class="section level2">
 <h2>Is an address in a network?</h2>
-<p>A very common task is to check if an IP address is within an IP network, so the ipaddress package provides a couple of different functions to help with this workflow: <code>is_within()</code> and <code>is_within_any()</code>. We also provide <code>is_subnet()</code> and <code>is_supernet()</code> to test if a network is within another network.</p>
+<p>A very common task is to check if an address is within a network, so the ipaddress package provides a couple of different functions to help with this workflow: <code>is_within()</code> and <code>is_within_any()</code>. We also provide <code>is_subnet()</code> and <code>is_supernet()</code> to test if a network is within another network.</p>
 <p>To see how these functions can be used in practice, let’s consider a couple of IP networks:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>my_networks &lt;-<span class="st"> </span><span class="kw">tibble</span>(</span>
 <span id="cb3-2"><a href="#cb3-2"></a>  <span class="dt">network =</span> <span class="kw">ip_network</span>(<span class="kw">c</span>(<span class="st">&quot;192.168.0.0/16&quot;</span>, <span class="st">&quot;2001:db8::/32&quot;</span>)),</span>
@@ -391,15 +391,54 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt; 2                 1.2.3.4 FALSE     </span></span>
 <span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334 TRUE      </span></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; 4                     ::1 FALSE</span></span></code></pre></div>
-<p>But what if we need to know <em>which</em> of our networks the address was found in? We can do that by performing a cross-join with the table of networks, and filtering those rows that match.</p>
+<p>But what if we need to know <em>which</em> of our networks the address was found in? We can do that using the excellent <a href="https://cran.r-project.org/package=fuzzyjoin">fuzzyjoin</a> package together with the <code>is_within()</code> function.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>my_addresses <span class="op">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">full_join</span>(my_networks, <span class="dt">by =</span> <span class="kw">character</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">is_within</span>(address, network))</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; # A tibble: 2 x 3</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;                   address        network label        </span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;                 &lt;ip_addr&gt;     &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; 1           192.168.100.1 192.168.0.0/16 Private      </span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 2 2001:db8::8a2e:370:7334  2001:db8::/32 Documentation</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span>fuzzyjoin<span class="op">::</span><span class="kw">fuzzy_left_join</span>(my_networks, <span class="kw">c</span>(<span class="st">&quot;address&quot;</span> =<span class="st"> &quot;network&quot;</span>), is_within)</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; # A tibble: 4 x 3</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt;                   address        network label        </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;                 &lt;ip_addr&gt;     &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; 1           192.168.100.1 192.168.0.0/16 Private      </span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt; 2                 1.2.3.4             NA &lt;NA&gt;         </span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334  2001:db8::/32 Documentation</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; 4                     ::1             NA &lt;NA&gt;</span></span></code></pre></div>
+</div>
+<div id="randomly-generate-public-addresses" class="section level2">
+<h2>Randomly generate public addresses</h2>
+<p>ipaddress provides functions to sample from a specific network (<code>sample_network()</code>) or the entire address space (<code>sample_ipv4()</code> and <code>sample_ipv6()</code>). However, it can be more difficult to sample from the majority of address space, while excluding certain networks.</p>
+<p>A good example is sampling public IPv4 addresses. The simplest solution is to use an accept-reject algorithm – sampling the entire IPv4 address space and rejecting addresses that are reserved.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>sample_public &lt;-<span class="st"> </span><span class="cf">function</span>(size) {</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  result &lt;-<span class="st"> </span><span class="kw">sample_ipv4</span>(size)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  all_public &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="cf">while</span> (<span class="op">!</span>all_public) {</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    public &lt;-<span class="st"> </span><span class="kw">is_global</span>(result)</span>
+<span id="cb7-7"><a href="#cb7-7"></a>    n_replace &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="op">!</span>public)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>    </span>
+<span id="cb7-9"><a href="#cb7-9"></a>    <span class="cf">if</span> (n_replace <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb7-10"><a href="#cb7-10"></a>      all_public &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-12"><a href="#cb7-12"></a>      result[<span class="op">!</span>public] &lt;-<span class="st"> </span><span class="kw">sample_ipv4</span>(n_replace)</span>
+<span id="cb7-13"><a href="#cb7-13"></a>    }</span>
+<span id="cb7-14"><a href="#cb7-14"></a>  }</span>
+<span id="cb7-15"><a href="#cb7-15"></a>  </span>
+<span id="cb7-16"><a href="#cb7-16"></a>  result</span>
+<span id="cb7-17"><a href="#cb7-17"></a>}</span></code></pre></div>
+<p>We now sample 10 addresses and make sure they are all public addresses.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">tibble</span>(<span class="dt">address =</span> <span class="kw">sample_public</span>(<span class="dv">10</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">is_public =</span> <span class="kw">is_global</span>(address))</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;            address is_public</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;          &lt;ip_addr&gt; &lt;lgl&gt;    </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;  1  229.200.241.48 TRUE     </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt;  2   59.22.200.190 TRUE     </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;  3 149.251.190.216 TRUE     </span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;  4     77.45.132.6 TRUE     </span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  5  111.107.124.73 TRUE     </span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;  6  190.129.187.31 TRUE     </span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;  7   21.148.10.157 TRUE     </span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  8 172.176.113.127 TRUE     </span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  9  156.197.25.215 TRUE     </span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; 10 154.197.251.124 TRUE</span></span></code></pre></div>
 </div>
 
 

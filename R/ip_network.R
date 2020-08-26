@@ -35,6 +35,9 @@ methods::setOldClass(c("ip_network", "vctrs_vctr"))
 #' When casting an `ip_network` object back to a character vector using
 #' `as.character()`, IPv6 addresses are reduced to their compressed representation.
 #'
+#' When comparing and sorting `ip_network` vectors, the network address is
+#' compared before the prefix length.
+#'
 #' @param ... Included for S3 generic consistency
 #' @param x
 #' * For `ip_network()`: A character vector of IP networks, in CIDR notation
@@ -91,7 +94,7 @@ ip_network <- function(...) {
 #' @export
 ip_network.default <- function(x = character(), strict = TRUE, ...) {
   if (!is_bool(strict)) {
-    abort("'strict' be must TRUE or FALSE")
+    abort("`strict` be must TRUE or FALSE")
   }
 
   wrap_parse_network(x, strict)
@@ -100,11 +103,11 @@ ip_network.default <- function(x = character(), strict = TRUE, ...) {
 #' @rdname ip_network
 #' @export
 ip_network.ip_address <- function(address, prefix_length, strict = TRUE, ...) {
-  if (!is_integer(prefix_length)) {
-    abort("'prefix_length' must be an integer vector")
+  if (!is_integerish(prefix_length)) {
+    abort("`prefix_length` must be an integer vector")
   }
   if (!is_bool(strict)) {
-    abort("'strict' be must TRUE or FALSE")
+    abort("`strict` be must TRUE or FALSE")
   }
 
   # vector recycling
@@ -157,16 +160,21 @@ as_ip_network.ip_interface <- function(x) {
 #' @export
 as.character.ip_network <- function(x, ...) wrap_print_network(x)
 
+#' @inheritParams format.ip_address
 #' @rdname ip_network
 #' @export
-format.ip_network <- function(x, ...) as.character(x)
+format.ip_network <- function(x, exploded = FALSE, ...) {
+  wrap_print_network(x, exploded)
+}
 
 
 # Comparison ------------------------------------------------------------
 
 #' @export
 vec_proxy_compare.ip_network <- function(x, ...) {
-  wrap_compare_address(network_address(x))
+  compare_df <- wrap_compare_address(network_address(x))
+  compare_df$prefix <- field(x, "prefix")
+  compare_df
 }
 
 
