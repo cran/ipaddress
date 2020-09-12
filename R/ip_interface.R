@@ -1,6 +1,3 @@
-#' @importFrom methods setOldClass
-methods::setOldClass(c("ip_interface", "vctrs_vctr"))
-
 #' Vector of IP interfaces
 #'
 #' @description
@@ -74,7 +71,7 @@ ip_interface <- function(...) {
 #' @rdname ip_interface
 #' @export
 ip_interface.default <- function(x = character(), ...) {
-  new_ip_interface_reclass(wrap_parse_interface(x))
+  new_ip_interface_reclass(wrap_parse_network(x, FALSE, TRUE))
 }
 
 #' @rdname ip_interface
@@ -89,7 +86,7 @@ ip_interface.ip_address <- function(address, prefix_length, ...) {
   address <- args[[1L]]
   prefix_length <- args[[2L]]
 
-  new_ip_interface_reclass(wrap_construct_interface_from_address(address, prefix_length))
+  new_ip_interface_reclass(wrap_construct_network_from_address(address, prefix_length, FALSE, TRUE))
 }
 
 #' Low-level constructor that accepts the encoded data from C++.
