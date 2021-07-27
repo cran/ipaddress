@@ -1,7 +1,7 @@
-2a512ddf75741ce85841d9d1e24b3548 *DESCRIPTION
+7a56f27e7a1514e30da8a92b633f240a *DESCRIPTION
 eee75bd9572b80233ee9806d5bba6c7e *LICENSE
 05399b7550a7a74a96fb4e1a12fbceeb *NAMESPACE
-8dd7060176775bec56649aa2de8e0a97 *NEWS.md
+24cfab626d902ea6f03287ec071bc249 *NEWS.md
 dd0c14780a789068bf9dbe5d96de63d2 *R/RcppExports.R
 5d57201cfdf7ca3c49beacae0d9454ed *R/address_ranges.R
 8103212943651546d9ff33a094dcc59d *R/common_network.R
@@ -36,9 +36,9 @@ cda3ffd02a8ed713ad003846097ed9b7 *R/zzz.R
 8f20e6e4afc3e5efafc69e0a74a4a73e *inst/doc/ipaddress-classes.R
 3f0e6e395af69b92cd148c224626c5b7 *inst/doc/ipaddress-classes.Rmd
 64c1618300bc02f78c102f0aa388b046 *inst/doc/ipaddress-classes.html
-6f6f74fccaba3fca439c69377dc7d4a3 *inst/doc/ipaddress-examples.R
-566806f3b25fe03d578ac3a7bad72ed1 *inst/doc/ipaddress-examples.Rmd
-783e432776669857eee26944783f12ea *inst/doc/ipaddress-examples.html
+247566937a373f20ff22a3698d0e497d *inst/doc/ipaddress-examples.R
+5039404b20921d65c69a972735df0f99 *inst/doc/ipaddress-examples.Rmd
+b2a1102e777789e7894f0819803379dd *inst/doc/ipaddress-examples.html
 639c6ec9cd65d0ac45dd127e05638bea *inst/include/ipaddress.h
 9fda55cbcdb065fab4d20c3303d08398 *inst/include/ipaddress/IpAddress.h
 5605f03a52e26ba9bcee10613fc61840 *inst/include/ipaddress/IpNetwork.h
@@ -108,7 +108,7 @@ fa4fd46c3306ee2279f4a6a2edbd6e03 *src/operators.cpp
 207885636ed79046da4adc5fc264e0aa *tests/testthat/test-ip_to_bytes.R
 c886335ab540a99062ac22785d2746f0 *tests/testthat/test-ip_to_hex.R
 389f2962134681f21703f1422a5e8ab0 *tests/testthat/test-ip_to_hostname.R
-5189e189a9f05ddb31acf7ed5a8b4ac4 *tests/testthat/test-ip_to_integer.R
+e4c1692cb42c0e4dfb2785512c11dae2 *tests/testthat/test-ip_to_integer.R
 baf6f5a70351dc36f978935811a158b5 *tests/testthat/test-ip_version.R
 963a247536efb3d47fd9a4b38bb22077 *tests/testthat/test-ipv6_transition.R
 635e00719335dab5ddac352928ef523a *tests/testthat/test-network_mask.R
@@ -123,5 +123,5 @@ c1b59e6cf91520c2d7a2c1b8cb5c4f1a *tests/testthat/test-sample.R
 f859925028078c9cb8d52217843bd972 *tests/testthat/test-traverse_hierarchy.R
 6bede728a355b46fdbfc3add7cd366d0 *tests/testthat/test-within_network.R
 3f0e6e395af69b92cd148c224626c5b7 *vignettes/ipaddress-classes.Rmd
-566806f3b25fe03d578ac3a7bad72ed1 *vignettes/ipaddress-examples.Rmd
+5039404b20921d65c69a972735df0f99 *vignettes/ipaddress-examples.Rmd
 4f934de85a57050829414aa975a58575 *vignettes/ipaddress_classes.png

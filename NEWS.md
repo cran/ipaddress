@@ -1,3 +1,8 @@
+# ipaddress 0.5.3
+
+Hotfix for CRAN check warnings.
+
+
 # ipaddress 0.5.2
 
 * The `base` argument of `ip_to_integer()` is removed.
@@ -10,6 +15,7 @@
   * The bignum package is now an optional dependency.
 
 * New `ip_to_hex()` and `hex_to_ip()` functions to encode and decode addresses as hexadecimal strings.
+
 
 # ipaddress 0.5.1
 
