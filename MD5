@@ -1,7 +1,7 @@
-7a56f27e7a1514e30da8a92b633f240a *DESCRIPTION
+9bfad7f734724e4f173728c9c91ec22f *DESCRIPTION
 eee75bd9572b80233ee9806d5bba6c7e *LICENSE
 05399b7550a7a74a96fb4e1a12fbceeb *NAMESPACE
-24cfab626d902ea6f03287ec071bc249 *NEWS.md
+371238a70cc38293097bdece48b86d60 *NEWS.md
 dd0c14780a789068bf9dbe5d96de63d2 *R/RcppExports.R
 5d57201cfdf7ca3c49beacae0d9454ed *R/address_ranges.R
 8103212943651546d9ff33a094dcc59d *R/common_network.R
@@ -29,8 +29,8 @@ f6a54b775399dbaba6677551b4de08af *R/sample.R
 c5daa5e630baf9444391e7d812a52b47 *R/traverse_hierarchy.R
 7369726253889851d5150136d87874b3 *R/within_network.R
 cda3ffd02a8ed713ad003846097ed9b7 *R/zzz.R
-510ec315825eb76c3be7b2160f21fcd9 *README.md
-98dd413c41c80b9d86f483dd6f9345ff *build/vignette.rds
+eeb1dac52410f19aed04de49b26bfe22 *README.md
+28da34c7913a238c27ffe66fd7ddd3cd *build/vignette.rds
 5e98d1e9b88e7a2bd120fb8d4a51f181 *data/iana_ipv4.rda
 29c857c7fd6a708fa79e0a2758ca1af5 *data/iana_ipv6.rda
 8f20e6e4afc3e5efafc69e0a74a4a73e *inst/doc/ipaddress-classes.R
@@ -38,9 +38,9 @@ cda3ffd02a8ed713ad003846097ed9b7 *R/zzz.R
 64c1618300bc02f78c102f0aa388b046 *inst/doc/ipaddress-classes.html
 247566937a373f20ff22a3698d0e497d *inst/doc/ipaddress-examples.R
 5039404b20921d65c69a972735df0f99 *inst/doc/ipaddress-examples.Rmd
-b2a1102e777789e7894f0819803379dd *inst/doc/ipaddress-examples.html
+34bc952cf19c36906e546d73a5742226 *inst/doc/ipaddress-examples.html
 639c6ec9cd65d0ac45dd127e05638bea *inst/include/ipaddress.h
-9fda55cbcdb065fab4d20c3303d08398 *inst/include/ipaddress/IpAddress.h
+c9c43cf6a2e03be194e7a5d8b28197d0 *inst/include/ipaddress/IpAddress.h
 5605f03a52e26ba9bcee10613fc61840 *inst/include/ipaddress/IpNetwork.h
 2584a546a1e849ee7a6ce513365c9cf3 *inst/include/ipaddress/bitwise.h
 dc614033259eeda5f20931fcc30f7310 *inst/include/ipaddress/count_zeros.h
@@ -64,7 +64,7 @@ dab745ae367057c6513e0cd767045afd *man/ip_operators.Rd
 867ce700d42aa12e3cfab55613e5cdf1 *man/ip_to_hex.Rd
 76f0b147d5634fef098cecfacc2b473e *man/ip_to_hostname.Rd
 28d7ff2741035d9b96847d35fdad7659 *man/ip_to_integer.Rd
-6a488baa4f8acbd37948d1d21686ff82 *man/ipaddress-package.Rd
+289d8bce891032d0ee342198495a2076 *man/ipaddress-package.Rd
 bec296e177116b7c5745c9f0bd107511 *man/ipaddress-vctrs.Rd
 ab4cfc740d5feb52a4564619902d0193 *man/ipv6-transition.Rd
 cc40223468270b96b3a1767e47747fdc *man/is_ipv6.Rd
@@ -79,8 +79,9 @@ cc40223468270b96b3a1767e47747fdc *man/is_ipv6.Rd
 753bc8811fc4dfccfa2c7980eeba2cfc *man/summarize_address_range.Rd
 1a9f3875357bab95fdc0ae34a93787f3 *man/traverse_hierarchy.Rd
 a4576e3861b2c0862dad8199f7587232 *src/Makevars
+3747a615512743d7acdfee3c30ba9340 *src/Makevars.ucrt
 642cbb093547c56a23c92e5f72fcbc1f *src/Makevars.win
-d926c9136dd4a10723fee13bbf799b96 *src/RcppExports.cpp
+0ad02447a08851402ce62c66d05a91a5 *src/RcppExports.cpp
 793c9aa0b560c7a4f00e10590d90b0b8 *src/address_ranges.cpp
 63ea5824a6fc1a9ef964fbd358d96256 *src/ip_address.cpp
 e37de26687863d3ab7bc9d73b9c07afe *src/ip_network.cpp
