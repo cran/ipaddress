@@ -1,6 +1,6 @@
 Package: ipaddress
 Title: Tidy IP Addresses
-Version: 0.5.4
+Version: 0.5.5
 Authors@R: 
     person(given = "David",
            family = "Hall",
@@ -25,11 +25,11 @@ LinkingTo: AsioHeaders, Rcpp
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 SystemRequirements: C++11
 NeedsCompilation: yes
-Packaged: 2022-01-04 01:23:09 UTC; david
+Packaged: 2022-08-12 04:33:30 UTC; davidhall
 Author: David Hall [aut, cre] (<https://orcid.org/0000-0002-2193-0480>)
 Maintainer: David Hall <david.hall.physics@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-01-11 11:52:42 UTC
+Date/Publication: 2022-08-12 06:50:02 UTC

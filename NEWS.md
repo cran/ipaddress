@@ -1,3 +1,7 @@
+# ipaddress 0.5.5
+
+Resolve CRAN check notes about HTML5 by upgrading to latest {roxygen}.
+
 # ipaddress 0.5.4
 
 Compatible with new compiler toolchain on Windows for R 4.2 ([see announcement](https://developer.r-project.org/Blog/public/2021/12/07/upcoming-changes-in-r-4.2-on-windows/)).
