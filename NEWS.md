@@ -1,3 +1,7 @@
+# ipaddress 0.5.6
+
+Resolve CRAN check warnings about deprecated use of C++ function `sprintf()`.
+
 # ipaddress 0.5.5
 
 Resolve CRAN check notes about HTML5 by upgrading to latest {roxygen}.
