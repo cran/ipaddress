@@ -5,7 +5,8 @@
 #'
 #' @param x An [`ip_network`] scalar
 #' @param size Integer specifying the number of addresses to return
-#' @param replace Should sampling be with replacement?
+#' @param replace Should sampling be with replacement? (default: `FALSE`)
+#' @inheritParams rlang::args_dots_empty
 #' @return An [`ip_address`] vector
 #'
 #' @seealso
@@ -24,33 +25,43 @@ NULL
 
 #' @rdname sample
 #' @export
-sample_ipv4 <- function(size, replace = FALSE) {
-  sample_network(ip_network("0.0.0.0/0"), size, replace)
+sample_ipv4 <- function(size, ..., replace = FALSE) {
+  sample_network(ip_network("0.0.0.0/0"), size, ..., replace = replace)
 }
 
 #' @rdname sample
 #' @export
-sample_ipv6 <- function(size, replace = FALSE) {
-  sample_network(ip_network("::/0"), size, replace)
+sample_ipv6 <- function(size, ..., replace = FALSE) {
+  sample_network(ip_network("::/0"), size, ..., replace = replace)
 }
 
 #' @rdname sample
 #' @export
-sample_network <- function(x, size, replace = FALSE) {
-  if (!(is_ip_network(x) && length(x) == 1) || is.na(x)) {
-    abort("`x` must be an ip_network scalar")
-  }
-  if (!(is_scalar_integerish(size) && size > 0)) {
-    abort("`size` must be a positive integer scalar")
+sample_network <- function(x, size, ..., replace = FALSE) {
+  check_dots_empty()
+  check_network(x)
+  check_scalar(x)
+  check_integer(size)
+  check_scalar(size)
+  check_all(size > 0, "size", "must be positive non-zero integer")
+  check_bool(replace)
+
+  if (is.na(x)) {
+    cli::cli_abort("{.arg x} must not be NA")
   }
   if (size >= 2^31) {
-    abort("`size` must be less than 2^31")
-  }
-  if (!is_bool(replace)) {
-    abort("`replace` must be TRUE or FALSE")
+    cli::cli_abort(c(
+      "{.arg size} must be less than 2^31",
+      "x" = "Requested size: {.val {size}}",
+      "i" = "Maximum size: {.val {2^31}}"
+    ))
   }
   if (!replace && size > num_addresses(x)) {
-    abort("cannot take a sample larger than the network size when `replace = FALSE`")
+    cli::cli_abort(c(
+      "{.arg size} must not be greater than the network size when {.code replace = FALSE}",
+      "x" = "Requested size: {.val {size}}",
+      "i" = "Network size: {.val {num_addresses(x)}}"
+    ))
   }
 
   # in some cases it's quicker to generate all addresses

@@ -3,58 +3,41 @@
 \name{netmask}
 \alias{netmask}
 \alias{prefix_length}
+\alias{netmask.numeric}
 \alias{hostmask}
-\alias{prefix_length.ip_network}
-\alias{netmask.ip_network}
-\alias{hostmask.ip_network}
-\alias{prefix_length.ip_interface}
-\alias{netmask.ip_interface}
-\alias{hostmask.ip_interface}
-\alias{prefix_length.default}
-\alias{netmask.default}
-\alias{hostmask.default}
+\alias{hostmask.numeric}
 \title{Network mask}
 \usage{
-prefix_length(...)
+prefix_length(x)
 
-netmask(...)
+netmask(x, ...)
 
-hostmask(...)
+\method{netmask}{numeric}(x, is_ipv6 = NULL, ...)
 
-\method{prefix_length}{ip_network}(x, ...)
+hostmask(x, ...)
 
-\method{netmask}{ip_network}(x, ...)
-
-\method{hostmask}{ip_network}(x, ...)
-
-\method{prefix_length}{ip_interface}(x, ...)
-
-\method{netmask}{ip_interface}(x, ...)
-
-\method{hostmask}{ip_interface}(x, ...)
-
-\method{prefix_length}{default}(mask, ...)
-
-\method{netmask}{default}(prefix_length, is_ipv6, ...)
-
-\method{hostmask}{default}(prefix_length, is_ipv6, ...)
+\method{hostmask}{numeric}(x, is_ipv6 = NULL, ...)
 }
 \arguments{
-\item{...}{Arguments to be passed to other methods}
+\item{x}{\itemize{
+\item An \code{\link{ip_network}} vector.
+\item An \code{\link{ip_interface}} vector.
+\item \code{prefix_length()}: An \code{\link{ip_address}} vector of netmasks and/or hostmasks. Ambiguous cases
+(all zeros, all ones) are treated as netmasks.
+\item \code{netmask()} and \code{hostmask()}: An integer vector of prefix lengths.
+}}
 
-\item{x}{An \code{\link{ip_network}} or \code{\link{ip_interface}} vector}
+\item{...}{Arguments passed to methods.}
 
-\item{mask}{An \code{\link{ip_address}} vector of netmasks and/or hostmasks. Ambiguous
-cases (all zeros, all ones) are treated as netmasks.}
-
-\item{prefix_length}{An integer vector}
-
-\item{is_ipv6}{A logical vector}
+\item{is_ipv6}{A logical vector indicating whether to construct an IPv4 or
+IPv6 address. If \code{NULL} (the default), then IPv4 is preferred but an IPv6
+address is constructed when \code{x} is too large for the IPv4 address space.}
 }
 \value{
 \itemize{
-\item \code{prefix_length()} returns an integer vector
-\item \code{netmask()} and \code{hostmask()} return an \code{\link{ip_address}} vector
+\item \code{prefix_length()}: An integer vector
+\item \code{netmask()}: An \code{\link{ip_address}} vector
+\item \code{hostmask()}: An \code{\link{ip_address}} vector
 }
 }
 \description{

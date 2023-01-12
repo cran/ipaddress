@@ -62,33 +62,43 @@ test_that("vector recycling works", {
 
   expect_error(netmask(rep(0L, 3), rep(TRUE, 2)), class = "vctrs_error_incompatible_size")
   expect_error(hostmask(rep(0L, 3), rep(TRUE, 2)), class = "vctrs_error_incompatible_size")
+})
 
-  expect_error(netmask(1L))
-  expect_error(netmask(c(1L, 2L)))
-  expect_error(hostmask(1L))
-  expect_error(hostmask(c(1L, 2L)))
+test_that("default is_ipv6 works", {
+  expect_equal(
+    netmask(c(32L, 33L)),
+    ip_address(c("255.255.255.255", "ffff:ffff:8000::"))
+  )
+  expect_equal(
+    hostmask(c(32L, 33L)),
+    ip_address(c("0.0.0.0", "::7fff:ffff:ffff:ffff:ffff:ffff"))
+  )
 })
 
 test_that("input validation works", {
-  expect_error(
-    prefix_length(1L),
-    "prefix_length() accepts an ip_address, ip_network or ip_interface vector",
-    fixed = TRUE
-  )
-  expect_error(netmask(ip_address("1.2.3.4")), "`prefix_length` must be an integer vector")
-  expect_error(hostmask(ip_address("1.2.3.4")), "`prefix_length` must be an integer vector")
+  expect_snapshot(error = TRUE, {
+    prefix_length(1L)
+  })
+  expect_snapshot(error = TRUE, {
+    netmask(ip_address("1.2.3.4"))
 
-  expect_error(netmask(1.5, FALSE), "`prefix_length` must be an integer vector")
-  expect_error(hostmask(1.5, FALSE), "`prefix_length` must be an integer vector")
-  expect_error(netmask(1L, "yes"), "`is_ipv6` must be a logical vector")
-  expect_error(hostmask(1L, "yes"), "`is_ipv6` must be a logical vector")
+    netmask(1.5, FALSE)
+    netmask(1L, "yes")
 
-  expect_error(netmask(-1L, FALSE), "`prefix_length` cannot be negative")
-  expect_error(hostmask(-1L, FALSE), "`prefix_length` cannot be negative")
-  expect_error(netmask(33L, FALSE), "`prefix_length` cannot be greater than 32 for IPv4")
-  expect_error(hostmask(33L, FALSE), "`prefix_length` cannot be greater than 32 for IPv4")
-  expect_error(netmask(129L, TRUE), "`prefix_length` cannot be greater than 128 for IPv6")
-  expect_error(hostmask(129L, TRUE), "`prefix_length` cannot be greater than 128 for IPv6")
+    netmask(-1L, FALSE)
+    netmask(33L, FALSE)
+    netmask(129L, TRUE)
+  })
+  expect_snapshot(error = TRUE, {
+    hostmask(ip_address("1.2.3.4"))
+
+    hostmask(1.5, FALSE)
+    hostmask(1L, "yes")
+
+    hostmask(-1L, FALSE)
+    hostmask(33L, FALSE)
+    hostmask(129L, TRUE)
+  })
 })
 
 test_that("missing values work", {

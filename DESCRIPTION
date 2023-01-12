@@ -1,11 +1,8 @@
 Package: ipaddress
-Title: Tidy IP Addresses
-Version: 0.5.6
+Title: Data Analysis for IP Addresses and Networks
+Version: 1.0.0
 Authors@R: 
-    person(given = "David",
-           family = "Hall",
-           role = c("aut", "cre"),
-           email = "david.hall.physics@gmail.com",
+    person("David", "Hall", , "david.hall.physics@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2193-0480"))
 Description: Classes and functions for working with IP (Internet Protocol)
     addresses and networks, inspired by the Python 'ipaddress' module.
@@ -16,20 +13,20 @@ License: MIT + file LICENSE
 URL: https://davidchall.github.io/ipaddress/,
         https://github.com/davidchall/ipaddress
 BugReports: https://github.com/davidchall/ipaddress/issues
-Depends: R (>= 3.3.0)
-Imports: Rcpp, rlang (>= 0.4.0), vctrs (>= 0.3.0)
-Suggests: bignum (>= 0.2.0), blob, crayon, dplyr (>= 1.0.0), fuzzyjoin
-        (>= 0.1.6), knitr, pillar (>= 1.4.5), rmarkdown, testthat (>=
-        2.2.0)
+Depends: R (>= 3.5)
+Imports: cli (>= 3.4.0), Rcpp, rlang (>= 1.0.3), vctrs
+Suggests: bignum, blob, crayon, dplyr, fuzzyjoin, knitr, pillar,
+        rmarkdown, tibble, testthat
 LinkingTo: AsioHeaders, Rcpp
 VignetteBuilder: knitr
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 SystemRequirements: C++11
 NeedsCompilation: yes
-Packaged: 2022-12-10 22:50:21 UTC; davidhall
+Packaged: 2023-01-12 04:30:51 UTC; davidhall
 Author: David Hall [aut, cre] (<https://orcid.org/0000-0002-2193-0480>)
 Maintainer: David Hall <david.hall.physics@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-12-11 08:00:02 UTC
+Date/Publication: 2023-01-12 08:20:08 UTC

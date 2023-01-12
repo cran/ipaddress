@@ -4,12 +4,12 @@
 #' the supernetwork containing the given network. `subnets()` returns the list
 #' of subnetworks which join to make the given network.
 #'
-#' @param x
-#'  * For `supernet()`: An [`ip_network`] vector
-#'  * For `subnets()`: An [`ip_network`] scalar
+#' @param x An [`ip_network`] vector
 #' @param new_prefix An integer vector indicating the desired prefix length.
 #'   By default, this steps a single level through the hierarchy.
-#' @return An [`ip_network`] vector
+#' @return
+#'  * `supernet()`: An [`ip_network`] vector
+#'  * `subnets()`: A list of [`ip_network`] vectors
 #'
 #' @details
 #' The ipaddress package does not support \link[base:LongVectors]{long vectors}
@@ -36,21 +36,11 @@ NULL
 #' @rdname traverse_hierarchy
 #' @export
 supernet <- function(x, new_prefix = prefix_length(x) - 1L) {
-  if (!is_ip_network(x)) {
-    abort("`x` must be an ip_network vector")
-  }
-  if (!is_integerish(new_prefix)) {
-    abort("`new_prefix` must be an integer vector")
-  }
-  if (any(new_prefix < 0, na.rm = TRUE)) {
-    abort("`new_prefix` cannot be negative")
-  }
-  if (any(new_prefix > max_prefix_length(x), na.rm = TRUE)) {
-    abort("`new_prefix` cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
-  }
-  if (any(new_prefix >= prefix_length(x), na.rm = TRUE)) {
-    abort("`new_prefix` must be shorter than current prefix length")
-  }
+  check_network(x)
+  check_integer(new_prefix)
+  check_all(prefix_length(x) > 0, "x", "must have a supernetwork")
+  check_all(new_prefix >= 0, "new_prefix", "must be positive")
+  check_all(new_prefix < prefix_length(x), "new_prefix", "must be less than {.code prefix_length(x)}")
 
   # vector recycling
   args <- vec_recycle_common(x, new_prefix)
@@ -72,24 +62,21 @@ supernet <- function(x, new_prefix = prefix_length(x) - 1L) {
 #' @rdname traverse_hierarchy
 #' @export
 subnets <- function(x, new_prefix = prefix_length(x) + 1L) {
-  if (!(is_ip_network(x) && length(x) == 1)) {
-    abort("`x` must be an ip_network scalar")
-  }
-  if (!is_scalar_integerish(new_prefix)) {
-    abort("`new_prefix` must be an integer scalar")
-  }
-  if (any(new_prefix < 0, na.rm = TRUE)) {
-    abort("`new_prefix` cannot be negative")
-  }
-  if (any(new_prefix > max_prefix_length(x), na.rm = TRUE)) {
-    abort("`new_prefix` cannot be greater than maximum (32 for IPv4, 128 for IPv6)")
-  }
-  if (any(new_prefix <= prefix_length(x), na.rm = TRUE)) {
-    abort("`new_prefix` must be longer than current prefix length")
-  }
+  check_network(x)
+  check_integer(new_prefix)
+  check_all(new_prefix >= 0, "new_prefix", "must be positive")
+  check_all(prefix_length(x) < max_prefix_length(x), "x", "must have a subnetwork")
+  check_all(new_prefix > prefix_length(x), "new_prefix", "must be greater than {.code prefix_length(x)}")
+  check_all(new_prefix <= max_prefix_length(x), "new_prefix", "must be less than {.code max_prefix_length(x)}")
+
   if (any(new_prefix - prefix_length(x) > 30L, na.rm = TRUE)) {
     abort("Too many subnets")
   }
 
-  wrap_subnets(x, new_prefix)
+  # vector recycling
+  args <- vec_recycle_common(x, new_prefix)
+  x <- args[[1L]]
+  new_prefix <- args[[2L]]
+
+  as_list_of(wrap_subnets(x, new_prefix), .ptype = ip_network())
 }
