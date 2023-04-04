@@ -1,12 +1,12 @@
-d74909dcdcfccc8c99bd0530c8d6d59a *DESCRIPTION
+6096eab1caddb4e8af3a9067c8295786 *DESCRIPTION
 eee75bd9572b80233ee9806d5bba6c7e *LICENSE
 a9465f825a09327c179039e7618c39c5 *NAMESPACE
-6e67b8ebe96966365dc9c49e016c18dc *NEWS.md
+0a406d2131923832c4024406b21bc588 *NEWS.md
 dd0c14780a789068bf9dbe5d96de63d2 *R/RcppExports.R
 b163d792f74b3f871e4076e2c54ff1bd *R/address_ranges.R
 e79f823737d46c88a56d6d2d247309a4 *R/check.R
 4636a2a673397e22790fc4849e641032 *R/common_network.R
-3d304b2b9a568fcb84354e13fbdc5d7c *R/country_networks.R
+648a69f2f7d16a68e7860b048dd8179e *R/country_networks.R
 d4fb2345082693867416a2f09545cf36 *R/data.R
 e2083cd555df8cf4d30d5149895ead1e *R/ip_address.R
 c1cead99fbb1073aba489a2f07978718 *R/ip_interface.R
@@ -40,7 +40,7 @@ fe828723bec1b785e5cb8e1af6fea742 *inst/doc/ip-data.Rmd
 3860f150c29ac0a3c551dd40b13310a0 *inst/doc/ip-data.html
 6ac903605096ccb64317edd61ecc1846 *inst/doc/recipes.R
 9ecde991b5afed31eccd1f4c0a244033 *inst/doc/recipes.Rmd
-35b351b4811a324585df6b0704025a72 *inst/doc/recipes.html
+83c5305ce58805a51f040ab3b28252ae *inst/doc/recipes.html
 639c6ec9cd65d0ac45dd127e05638bea *inst/include/ipaddress.h
 c9c43cf6a2e03be194e7a5d8b28197d0 *inst/include/ipaddress/IpAddress.h
 5605f03a52e26ba9bcee10613fc61840 *inst/include/ipaddress/IpNetwork.h
@@ -53,7 +53,7 @@ fe76163940bd40a0a6839c7736d421ff *inst/include/ipaddress/to_string.h
 c99aaaa6a0c1e43db6a705dbd7c2f608 *man/address_in_network.Rd
 5b3b6cd8ed0b07c5cdd079a1d83597c4 *man/collapse_networks.Rd
 a2582cd2333519e54b6e9330958f6a29 *man/common_network.Rd
-fe25f02eebf3ec05d58df89154ee5ebe *man/country_networks.Rd
+7bcf20ba8b509910071968391d4ec051 *man/country_networks.Rd
 90281d29eb73b714d8f6c7bf878d076e *man/exclude_networks.Rd
 008daff39080f9ce547a33c9e7c2e33d *man/figures/logo.png
 4d0d9e3120cf1e63c4e6fe9057d1d7d3 *man/iana_ipv4.Rd
