@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE-------------------------------------------
+## ----echo = FALSE, message = FALSE--------------------------------------------
 knitr::opts_chunk$set(collapse = T, comment = "#>")
 options(tibble.print_min = 5)
 
@@ -32,7 +32,7 @@ my_addresses <- tibble(
 my_addresses %>%
   mutate(in_network = is_within_any(address, my_networks$network))
 
-## ---- eval=rlang::is_installed("fuzzyjoin")-----------------------------------
+## ----eval=rlang::is_installed("fuzzyjoin")------------------------------------
 my_addresses %>%
   fuzzyjoin::fuzzy_left_join(my_networks, c("address" = "network"), is_within)
 

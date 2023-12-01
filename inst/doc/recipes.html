@@ -354,9 +354,9 @@ be stored in its numeric data type. More details are found under
 represented as integers, and we’ll want to convert them to the
 <code>ip_address()</code> vector type. Here’s an example of how to do
 that:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">integer_to_ip</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3232235521</span>, <span class="dv">4294967295</span>))</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;ip_address[3]&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0.0.0         192.168.0.1     255.255.255.255</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">integer_to_ip</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3232235521</span>, <span class="dv">4294967295</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; &lt;ip_address[3]&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; [1] 0.0.0.0         192.168.0.1     255.255.255.255</span></span></code></pre></div>
 </div>
 <div id="networks-from-address-ranges" class="section level2">
 <h2>Networks from address ranges</h2>
@@ -370,16 +370,16 @@ that:</p>
 <p>Although the <code>ip_network()</code> function can handle the first
 3 options, we use the <code>common_network()</code> function for the
 final option.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.0&quot;</span>, <span class="st">&quot;2001:db8::&quot;</span>)),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">end =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.15&quot;</span>, <span class="st">&quot;2001:db8::ffff:ffff:ffff&quot;</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">network =</span> <span class="fu">common_network</span>(start, end))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         start                      end        network</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &lt;ip_addr&gt;                &lt;ip_addr&gt;     &lt;ip_netwk&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 192.168.0.0             192.168.0.15 192.168.0.0/28</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2001:db8:: 2001:db8::ffff:ffff:ffff  2001:db8::/80</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.0&quot;</span>, <span class="st">&quot;2001:db8::&quot;</span>)),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">end =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.15&quot;</span>, <span class="st">&quot;2001:db8::ffff:ffff:ffff&quot;</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">network =</span> <span class="fu">common_network</span>(start, end))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 3</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;         start                      end        network</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt;     &lt;ip_addr&gt;                &lt;ip_addr&gt;     &lt;ip_netwk&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 1 192.168.0.0             192.168.0.15 192.168.0.0/28</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 2  2001:db8:: 2001:db8::ffff:ffff:ffff  2001:db8::/80</span></span></code></pre></div>
 <p>Note that this approach assumes the two addresses do actually
 correspond to the first and last addresses of the network, otherwise an
 expanded network will be returned (see
@@ -395,44 +395,44 @@ and <code>is_supernet()</code> to test if a network is within another
 network.</p>
 <p>To see how these functions can be used in practice, let’s consider a
 couple of IP networks:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_networks <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">network =</span> <span class="fu">ip_network</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.0/16&quot;</span>, <span class="st">&quot;2001:db8::/32&quot;</span>)),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Private&quot;</span>, <span class="st">&quot;Documentation&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>my_networks</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          network label        </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 192.168.0.0/16 Private      </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2001:db8::/32 Documentation</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>my_networks <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">network =</span> <span class="fu">ip_network</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.0.0/16&quot;</span>, <span class="st">&quot;2001:db8::/32&quot;</span>)),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(<span class="st">&quot;Private&quot;</span>, <span class="st">&quot;Documentation&quot;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>my_networks</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2 × 2</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;          network label        </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;       &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; 1 192.168.0.0/16 Private      </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; 2  2001:db8::/32 Documentation</span></span></code></pre></div>
 <p>and a handful of addresses:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_addresses <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">address =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.100.1&quot;</span>, <span class="st">&quot;1.2.3.4&quot;</span>, <span class="st">&quot;2001:db8::8a2e:370:7334&quot;</span>, <span class="st">&quot;::1&quot;</span>))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>my_addresses <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">address =</span> <span class="fu">ip_address</span>(<span class="fu">c</span>(<span class="st">&quot;192.168.100.1&quot;</span>, <span class="st">&quot;1.2.3.4&quot;</span>, <span class="st">&quot;2001:db8::8a2e:370:7334&quot;</span>, <span class="st">&quot;::1&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>)</span></code></pre></div>
 <p>First, we’ll check if each address is in <em>any</em> of our
 networks.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>my_addresses <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">in_network =</span> <span class="fu">is_within_any</span>(address, my_networks<span class="sc">$</span>network))</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   address in_network</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 &lt;ip_addr&gt; &lt;lgl&gt;     </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           192.168.100.1 TRUE      </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                 1.2.3.4 FALSE     </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334 TRUE      </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                     ::1 FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>my_addresses <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">in_network =</span> <span class="fu">is_within_any</span>(address, my_networks<span class="sc">$</span>network))</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 2</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;                   address in_network</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;                 &lt;ip_addr&gt; &lt;lgl&gt;     </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 1           192.168.100.1 TRUE      </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 2                 1.2.3.4 FALSE     </span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334 TRUE      </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 4                     ::1 FALSE</span></span></code></pre></div>
 <p>But what if we need to know <em>which</em> of our networks the
 address was found in? We can do that using the excellent <a href="https://cran.r-project.org/package=fuzzyjoin">fuzzyjoin</a>
 package together with the <code>is_within()</code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>my_addresses <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  fuzzyjoin<span class="sc">::</span><span class="fu">fuzzy_left_join</span>(my_networks, <span class="fu">c</span>(<span class="st">&quot;address&quot;</span> <span class="ot">=</span> <span class="st">&quot;network&quot;</span>), is_within)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 3</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   address        network label        </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 &lt;ip_addr&gt;     &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1           192.168.100.1 192.168.0.0/16 Private      </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                 1.2.3.4             NA &lt;NA&gt;         </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334  2001:db8::/32 Documentation</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                     ::1             NA &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>my_addresses <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  fuzzyjoin<span class="sc">::</span><span class="fu">fuzzy_left_join</span>(my_networks, <span class="fu">c</span>(<span class="st">&quot;address&quot;</span> <span class="ot">=</span> <span class="st">&quot;network&quot;</span>), is_within)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 × 3</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;                   address        network label        </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;                 &lt;ip_addr&gt;     &lt;ip_netwk&gt; &lt;chr&gt;        </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 1           192.168.100.1 192.168.0.0/16 Private      </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 2                 1.2.3.4             NA &lt;NA&gt;         </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 3 2001:db8::8a2e:370:7334  2001:db8::/32 Documentation</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 4                     ::1             NA &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div id="randomly-generate-public-addresses" class="section level2">
 <h2>Randomly generate public addresses</h2>
@@ -444,40 +444,40 @@ while excluding certain networks.</p>
 <p>A good example is sampling public IPv4 addresses. The simplest
 solution is to use an accept-reject algorithm – sampling the entire IPv4
 address space and rejecting addresses that are reserved.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sample_public <span class="ot">&lt;-</span> <span class="cf">function</span>(size) {</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">sample_ipv4</span>(size)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  all_public <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (<span class="sc">!</span>all_public) {</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    public <span class="ot">&lt;-</span> <span class="fu">is_global</span>(result)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    n_replace <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span>public)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n_replace <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      all_public <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>      result[<span class="sc">!</span>public] <span class="ot">&lt;-</span> <span class="fu">sample_ipv4</span>(n_replace)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  result</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>sample_public <span class="ot">&lt;-</span> <span class="cf">function</span>(size) {</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">sample_ipv4</span>(size)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  all_public <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="cf">while</span> (<span class="sc">!</span>all_public) {</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>    public <span class="ot">&lt;-</span> <span class="fu">is_global</span>(result)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    n_replace <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span>public)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>    <span class="cf">if</span> (n_replace <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>      all_public <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      result[<span class="sc">!</span>public] <span class="ot">&lt;-</span> <span class="fu">sample_ipv4</span>(n_replace)</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    }</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>  }</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  result</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>}</span></code></pre></div>
 <p>We now sample 10 addresses and make sure they are all public
 addresses.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">address =</span> <span class="fu">sample_public</span>(<span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_public =</span> <span class="fu">is_global</span>(address))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            address is_public</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          &lt;ip_addr&gt; &lt;lgl&gt;    </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1   21.147.12.198 TRUE     </span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2   211.91.227.99 TRUE     </span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  206.112.97.249 TRUE     </span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4   73.209.79.239 TRUE     </span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5    192.38.46.61 TRUE     </span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  72.252.108.119 TRUE     </span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 121.191.131.213 TRUE     </span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  126.122.112.81 TRUE     </span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 190.239.246.240 TRUE     </span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     32.37.90.82 TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">address =</span> <span class="fu">sample_public</span>(<span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">is_public =</span> <span class="fu">is_global</span>(address))</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 2</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt;           address is_public</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;         &lt;ip_addr&gt; &lt;lgl&gt;    </span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt;  1 163.19.241.101 TRUE     </span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt;  2    77.44.11.33 TRUE     </span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt;  3      9.76.8.16 TRUE     </span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt;  4  58.181.212.25 TRUE     </span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt;  5  25.101.160.50 TRUE     </span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt;  6   93.168.72.94 TRUE     </span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="co">#&gt;  7  99.31.191.237 TRUE     </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="co">#&gt;  8 218.109.41.173 TRUE     </span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#&gt;  9 207.72.150.212 TRUE     </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="co">#&gt; 10  197.229.46.12 TRUE</span></span></code></pre></div>
 </div>
 
 

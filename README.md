@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ipaddress)](https://CRAN.R-project.org/package=ipaddress)
 [![R build
-status](https://github.com/davidchall/ipaddress/workflows/R-CMD-check/badge.svg)](https://github.com/davidchall/ipaddress/actions)
+status](https://github.com/davidchall/ipaddress/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/davidchall/ipaddress/actions/workflows/R-CMD-check.yaml)
 [![Coverage
 status](https://codecov.io/gh/davidchall/ipaddress/branch/master/graph/badge.svg)](https://app.codecov.io/gh/davidchall/ipaddress?branch=master)
 <!-- badges: end -->
@@ -80,7 +80,7 @@ see `vignette("recipes")`.
 
 ## Related work
 
-- [**iptools**](https://hrbrmstr.github.io/iptools/) – A well
+- [**iptools**](https://github.com/hrbrmstr/iptools) – A well
   established R package for working with IP addresses and networks.
   Unfortunately IPv6 support is severely limited. Also, addresses and
   networks are stored as character vectors, so they must be parsed to

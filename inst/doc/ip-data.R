@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -31,6 +31,6 @@ as_ip_address(x)
 
 as_ip_network(x)
 
-## ---- echo = FALSE, fig.cap="Summary of ipaddress classes"--------------------
+## ----echo = FALSE, fig.cap="Summary of ipaddress classes"---------------------
 knitr::include_graphics("ipaddress_classes.png")
 
