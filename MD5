@@ -1,7 +1,7 @@
-0d6f5ffe3e3ce1343b7873d9e7454285 *DESCRIPTION
+14e57fc4d84f64ac3ea348640167a9bb *DESCRIPTION
 eee75bd9572b80233ee9806d5bba6c7e *LICENSE
 a9465f825a09327c179039e7618c39c5 *NAMESPACE
-022e04994bd6032ff671cb6e72c0d16f *NEWS.md
+aa893a3e06cac9608b8fbc573f977042 *NEWS.md
 dd0c14780a789068bf9dbe5d96de63d2 *R/RcppExports.R
 b163d792f74b3f871e4076e2c54ff1bd *R/address_ranges.R
 e79f823737d46c88a56d6d2d247309a4 *R/check.R
@@ -32,15 +32,15 @@ bd8e700ad4999c676fefb77ad31b2b1d *R/test-helpers.R
 725cf736bcfb466e3fe4988cbb9ae7eb *R/within_network.R
 cda3ffd02a8ed713ad003846097ed9b7 *R/zzz.R
 dadad1525ec1792b777aa727bf6930dd *README.md
-1fcec71657f4baae3196021108f87528 *build/vignette.rds
+0833d2ece20f8fae9617e6c317bd7c17 *build/vignette.rds
 2051c792192bf15bfd344d1bc1f2b5d6 *data/iana_ipv4.rda
 29c857c7fd6a708fa79e0a2758ca1af5 *data/iana_ipv6.rda
 3c46e0e1d943a0ef848b6f46d51a2dcd *inst/doc/ip-data.R
 fe828723bec1b785e5cb8e1af6fea742 *inst/doc/ip-data.Rmd
-b39a2b319f3a12bc245cd03d07b5ec70 *inst/doc/ip-data.html
+2f69b7ff0f7e1619e033c319cd2bf6fd *inst/doc/ip-data.html
 5653b6d90ecda2d473e1b0a08f3a993d *inst/doc/recipes.R
 9ecde991b5afed31eccd1f4c0a244033 *inst/doc/recipes.Rmd
-b96d2c5204753df72bf504542c57498d *inst/doc/recipes.html
+ed0329942fd166b57e16a55cd0d509d5 *inst/doc/recipes.html
 639c6ec9cd65d0ac45dd127e05638bea *inst/include/ipaddress.h
 c9c43cf6a2e03be194e7a5d8b28197d0 *inst/include/ipaddress/IpAddress.h
 5605f03a52e26ba9bcee10613fc61840 *inst/include/ipaddress/IpNetwork.h
@@ -106,7 +106,7 @@ b4ed57fec5e8fd26be6d5dae89371939 *src/warn.h
 14c5ac58bee8d674d2e33693de357ad8 *tests/testthat.R
 c80237d3b664eefe527d707355a0c9d3 *tests/testthat/_snaps/address_ranges.md
 c25333d1002ce82de235aa8be34f2661 *tests/testthat/_snaps/common_network.md
-053d5ebd4e003d52984229cfbbb377cd *tests/testthat/_snaps/country_networks.md
+41743f34196c5339f967aafb34bf1ade *tests/testthat/_snaps/country_networks.md
 7b5a779562488c61dda7bd9d47979333 *tests/testthat/_snaps/ip_interface.md
 9ad9f4954ea0e40d2c7a9e6e41e83de9 *tests/testthat/_snaps/ip_network_v4.md
 d6bf44021a17a4eefe5fd27396fef0c6 *tests/testthat/_snaps/ip_network_v6.md
@@ -129,7 +129,7 @@ bd6aca992df15f1138a4f32536463c30 *tests/testthat/_snaps/operators.md
 8a21ab3d3864b779510a169a72719168 *tests/testthat/_snaps/within_network.md
 befedf771b7b5adaa3758ad57fe21a51 *tests/testthat/test-address_ranges.R
 15c22bbc47d5d5cdf6590684907b2367 *tests/testthat/test-common_network.R
-4aa9fe75c64456f7b7b7b527a30e1285 *tests/testthat/test-country_networks.R
+a3023728f34f913f1057d503bc3458b0 *tests/testthat/test-country_networks.R
 01a2199b0fd4bcbdbebe5fd4fee1a606 *tests/testthat/test-ip_address_v4.R
 04c6c7ac6aeeb525273ac80ed6a5e130 *tests/testthat/test-ip_address_v6.R
 946f5a3df0098a76c0129723af4873f4 *tests/testthat/test-ip_interface.R
@@ -138,7 +138,7 @@ befedf771b7b5adaa3758ad57fe21a51 *tests/testthat/test-address_ranges.R
 a69aa92acb7e1f2d7f2d56cf99055f91 *tests/testthat/test-ip_to_binary.R
 77e74f46205aff823b90d6ea71058abf *tests/testthat/test-ip_to_bytes.R
 4ac4b11db129dc3af44ff1a6f6f6d2f0 *tests/testthat/test-ip_to_hex.R
-35262837e9c8a72e164480679bcae16d *tests/testthat/test-ip_to_hostname.R
+d478dbd16369f752427a3af77d4261d4 *tests/testthat/test-ip_to_hostname.R
 481700ac12d19ee54ebd1339144d52ac *tests/testthat/test-ip_to_integer.R
 5c095aa66453afbf2ea19410727fa6ce *tests/testthat/test-ip_version.R
 acd4433765d071d6518eff46f9e651cc *tests/testthat/test-ipv6_transition.R
